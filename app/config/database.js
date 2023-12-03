@@ -1,3 +1,3 @@
 module.exports = {
-    url: "mongodb://localhost:27017/express_api"
+    url: 'mongodb://localhost:27017/express_car'
 };

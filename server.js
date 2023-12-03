@@ -9,28 +9,21 @@ const corsOption = {
 
 
 //connect to database
-const mongooseConfig = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-};
-
-db.mongoose.connect(db.url, mongooseConfig)
+db.mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("database connected"))
     .catch(err => {
-        console.log(`connection failed ${err.message}`);
+        console.log(`connection failed`, err);
         process.exit(1);
     });
 
 //register cors middleware
-
 app.use(cors(corsOption));
 app.use(express.json());
 
-//routes
 require("./app/routes/car.route")(app);
-
-
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`)
+});
 
