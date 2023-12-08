@@ -10,3 +10,14 @@ module.exports = app => {
 
     app.use("/car", routes)
 }
+
+// const car = require("../controllers/car.controller");
+// const routes = require("express").Router();
+
+// routes.get("/", car.findAll);
+// routes.get("/:id", car.show);
+// routes.post("/", car.create);
+// routes.put("/:id", car.update);
+// routes.delete("/:id", car.delete);
+
+// module.exports = routes;
