@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car List</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Car List</h1>
+    <!-- Table to display car data -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody id="carList">
+        <!-- Car data will be displayed here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+    // Fetch data from /car endpoint and display it in the table
+    fetch('/car')
+      .then(response => response.json())
+      .then(data => {
+        const carList = document.getElementById('carList');
+        data.forEach(car => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${car.id}</td>
+            <td>${car.brand}</td>
+            <td>${car.model}</td>
+            <td>${car.year}</td>
+          `;
+          carList.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+  
+</html>

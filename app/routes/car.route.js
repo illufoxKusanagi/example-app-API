@@ -10,7 +10,3 @@ module.exports = app => {
 
     app.use("/car", routes)
 }
-
-// app.get("/", (req, res) => {
-//     res.json({ message: "Hello" });
-// });

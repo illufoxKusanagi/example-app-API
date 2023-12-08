@@ -1,6 +1,23 @@
 const db = require("../models");
 const Car = db.car;
 
+module.exports = app => {
+    const car = require("../controllers/car.controller")
+    const routes = require("express").Router();
+
+    routes.get("/", car.findAll);
+    routes.get("/:id", car.show);
+    routes.post("/", car.create);
+    routes.put("/:id", car.update);
+    routes.delete("/:id", car.delete);
+
+    app.use("/car", routes)
+}
+exports.findAll = (req, res) => {
+    Car.find()
+        .then(data => res.json(data)) // Menggunakan res.json() untuk mengirim data
+        .catch(err => res.status(500).send({ message: err.message }));
+}
 exports.create = (req, res) => {
 
     req.body.buy_date = new Date(req.body.buy_date)
@@ -12,9 +29,8 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Car.find()
-        .then(() => res.send(data))
+        .then(data => res.send(data))
         .catch(err => res.status(500).send({ message: err.message }))
-    // res.send({ message: "it works" });
 }
 
 exports.show = (req, res) => {
@@ -43,7 +59,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Car.findByIdAndRemove(id)
+    Car.findByIdAndDelete(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({ message: "Cannot delete data" })
